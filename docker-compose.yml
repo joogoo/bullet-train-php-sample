@@ -6,7 +6,6 @@ services:
       - "8080:80"
     volumes:
       - ./public:/public
-      - ./vendor:/public/vendor
       - ./conf/site.conf:/etc/nginx/conf.d/site.conf
     links:
     - php
@@ -14,3 +13,5 @@ services:
     image: php:7-fpm
     volumes:
     - ./public:/public
+    - ./vendor:/vendor
+    - ./src:/src
