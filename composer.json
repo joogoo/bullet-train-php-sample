@@ -13,5 +13,10 @@
             "name": "Hervé E.",
             "email": "joogoo@users.noreply.github.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "BulletTrain\\Sample\\": "src/"
+        }
+    }
 }

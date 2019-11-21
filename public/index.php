@@ -22,15 +22,8 @@ $app = AppFactory::create();
 
 //$app->addErrorMiddleware(true, true, true);
 
-$app->get("/", function (Request $request, Response $response, array $args) {
-    $response->getBody()->write("Hello World!");
-    return $response;
-});
+$app->get("/", \BulletTrain\Sample\Controller\DefaultController::class . ":index");
 
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-    return $response;
-});
+$app->get('/hello/{name}', \BulletTrain\Sample\Controller\DefaultController::class . ":hello");
 
 $app->run();
