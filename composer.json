@@ -1,0 +1,15 @@
+{
+    "name": "joogoo/bullet-train-php-sample",
+    "type": "project",
+    "require": {
+        "mustache/mustache": "^2.12",
+        "slim/slim": "^4.3"
+    },
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Hervé E.",
+            "email": "joogoo@users.noreply.github.com"
+        }
+    ]
+}
