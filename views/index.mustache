@@ -5,11 +5,6 @@
     <title>Sample</title>
 </head>
 <body>
-    {{#feature_login}}
-        <div>&#10003; Login feature is active !</div>
-    {{/feature_login}}
-    {{^feature_login}}
-        <div>&#10007; Login feature is not active yet.</div>
-    {{/feature_login}}
+    {{> features/login/main }}
 </body>
 </html>

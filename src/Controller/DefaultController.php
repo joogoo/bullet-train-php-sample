@@ -13,7 +13,7 @@ use BulletTrain\Sample\Engine\Templating;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class DefaultController
+class DefaultController extends BaseController
 {
     public function index(RequestInterface $request, ResponseInterface $response, array $args)
     {
@@ -30,12 +30,6 @@ class DefaultController
 
     public function sample(RequestInterface $request, ResponseInterface $response, array $args)
     {
-        $class = Templating::class;
-        $builder = new $class();
-        /** @var Templating $engine */
-        $engine = $builder();
-
-        $response->getBody()->write($engine->render('index.mustache'));
-        return $response;
+        return $this->render($response, 'index.mustache', ['feature_login' => true,]);
     }
 }
