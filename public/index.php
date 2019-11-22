@@ -12,7 +12,7 @@ use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
 
-require '/vendor/autoload.php';
+require '../vendor/autoload.php';
 
 
 //AppFactory::setSlimHttpDecoratorsAutomaticDetection(false);
@@ -23,6 +23,7 @@ $app = AppFactory::create();
 //$app->addErrorMiddleware(true, true, true);
 
 $app->get("/", \BulletTrain\Sample\Controller\DefaultController::class . ":index");
+$app->get("/sample", \BulletTrain\Sample\Controller\DefaultController::class . ":sample");
 
 $app->get('/hello/{name}', \BulletTrain\Sample\Controller\DefaultController::class . ":hello");
 

@@ -5,13 +5,14 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./public:/public
+      - ./public:/project/public
       - ./conf/site.conf:/etc/nginx/conf.d/site.conf
     links:
     - php
   php:
     image: php:7-fpm
     volumes:
-    - ./public:/public
-    - ./vendor:/vendor
-    - ./src:/src
+    - ./public:/project/public
+    - ./vendor:/project/vendor
+    - ./src:/project/src
+    - ./views:/project/views

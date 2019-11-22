@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample</title>
+</head>
+<body>
+    {{#feature_login}}
+        <div>&#10003; Login feature is active !</div>
+    {{/feature_login}}
+    {{^feature_login}}
+        <div>&#10007; Login feature is not active yet.</div>
+    {{/feature_login}}
+</body>
+</html>
