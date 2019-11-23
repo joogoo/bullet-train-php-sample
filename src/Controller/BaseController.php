@@ -19,12 +19,19 @@ class BaseController
      */
     protected $engine;
 
+    /**
+     * @var array
+     */
+    protected $features;
+
     public function __construct()
     {
         $class = Templating::class;
         $builder = new $class();
         /** @var Templating $engine */
         $this->engine = $builder();
+
+        $this->features = include dirname(__DIR__, 2) . '/conf/features.php';
     }
 
     /**

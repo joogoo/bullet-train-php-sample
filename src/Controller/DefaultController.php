@@ -30,6 +30,6 @@ class DefaultController extends BaseController
 
     public function sample(RequestInterface $request, ResponseInterface $response, array $args)
     {
-        return $this->render($response, 'index.mustache', ['feature_login' => false,]);
+        return $this->render($response, 'index.mustache', $this->features);
     }
 }
