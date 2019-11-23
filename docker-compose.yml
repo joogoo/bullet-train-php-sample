@@ -16,3 +16,40 @@ services:
     - ./vendor:/project/vendor
     - ./src:/project/src
     - ./views:/project/views
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bullettrain
+    ports:
+      - "54320:5432"
+
+  api:
+    image: arcticbit/bullet-train-api
+    working_dir: /api
+    command: bash -c "cd /api/src
+      && pipenv run python manage.py migrate --noinput
+      && pipenv run python manage.py collectstatic --noinput
+      && pipenv run gunicorn --bind 0.0.0.0:8000 -w 3 app.wsgi"
+    environment:
+      DJANGO_DB_NAME: bullettrain
+      DJANGO_DB_USER: postgres
+      DJANGO_DB_PASSWORD: password
+      DJANGO_DB_PORT: 5432
+      DJANGO_ALLOWED_HOST: db
+    ports:
+    - "8000:8000"
+    depends_on:
+    - db
+    links:
+    - db:db
+
+  frontend:
+    image: arcticbit/bullet-train-frontend
+    ports:
+    - "8081:8080"
+    depends_on:
+    - api
+    links:
+    - api:api
