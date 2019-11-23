@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       - ./public:/project/public
-      - ./conf/nginx/site.conf:/etc/nginx/conf.d/site.conf
+      - ./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf
     links:
     - php
   php:
@@ -23,7 +23,9 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: bullettrain
     ports:
-      - "54320:5432"
+      - "5432:5432"
+    networks:
+    - bullet-train
 
   api:
     image: arcticbit/bullet-train-api
@@ -32,6 +34,7 @@ services:
       && pipenv run python manage.py migrate --noinput
       && pipenv run python manage.py collectstatic --noinput
       && pipenv run gunicorn --bind 0.0.0.0:8000 -w 3 app.wsgi"
+#      && pipenv run python manage.py runserver
     environment:
       DJANGO_DB_NAME: bullettrain
       DJANGO_DB_USER: postgres
@@ -39,17 +42,28 @@ services:
       DJANGO_DB_PORT: 5432
       DJANGO_ALLOWED_HOST: db
     ports:
-    - "8000:8000"
+      - "8081:8000"
     depends_on:
-    - db
+      - db
     links:
-    - db:db
+      - db:db
+    networks:
+    - bullet-train
+
 
   frontend:
-    image: arcticbit/bullet-train-frontend
+    #image: arcticbit/bullet-train-frontend
+    build:
+      context: .
+      dockerfile: docker/bullet-train-frontend/Dockerfile
     ports:
-    - "8081:8080"
+      - "8082:8080"
     depends_on:
-    - api
+      - api
     links:
-    - api:api
+      - api:api
+    networks:
+      - bullet-train
+
+networks:
+  bullet-train:
