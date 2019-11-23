@@ -41,6 +41,7 @@ services:
       DJANGO_DB_PASSWORD: password
       DJANGO_DB_PORT: 5432
       DJANGO_ALLOWED_HOST: db
+      GOOGLE_SERVICE_ACCOUNT: UA-120237963-3
     ports:
       - "8081:8000"
     depends_on:
