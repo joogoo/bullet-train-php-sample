@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sample</title>
-    {{> features/ui/main }}
-</head>
+{{> header }}
 <body>
     {{> features/login/main }}
+    <h1>Bullet Train PHP Sample</h1>
+    {{#warning}}
+        <div class="warning">
+            <span>{{warning}}</span>
+        </div>
+    {{/warning}}
+    <div>
+        <span>Features:</span>
+        <ul>
+            <li>Nice UI: <span class="feature_{{#feature_nice_ui}}on{{/feature_nice_ui}}{{^feature_nice_ui}}off{{/feature_nice_ui}}"></span></li>
+            <li>Login Feature: <span class="feature_{{#feature_login}}on{{/feature_login}}{{^feature_login}}off{{/feature_login}}"></span></li>
+        </ul>
+    </div>
 </body>
 </html>

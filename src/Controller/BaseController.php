@@ -41,12 +41,6 @@ class BaseController
         $builder = new $class();
         /** @var BulletTrainClient $featuresFlagManager */
         $this->featuresFlagManager = $builder();
-        echo "<pre>";
-        var_dump($this->featuresFlagManager->getFlags());
-        echo "</pre>";
-
-
-        $this->features = include dirname(__DIR__, 2) . '/conf/features.php';
     }
 
     /**
@@ -57,6 +51,7 @@ class BaseController
      */
     public function render(ResponseInterface $response, string $template, ?array $context = null): ResponseInterface
     {
+        $context = $context ?? $this->featuresFlagManager->exportFlags();
         $response
             ->getBody()
                 ->write(

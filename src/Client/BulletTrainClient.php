@@ -9,7 +9,8 @@
 namespace BulletTrain\Sample\Client;
 
 
-use Guzzle\Http\Client;
+use Guzzle\Http\EntityBodyInterface;
+use GuzzleHttp\Client;
 
 class BulletTrainClient
 {
@@ -35,6 +36,11 @@ class BulletTrainClient
      */
     protected $headers = [];
 
+    /**
+     * @var Flag[]
+     */
+    protected $flags = null;
+
     public function __invoke(array $config = null)
     {
         if (null === $config) {
@@ -46,15 +52,21 @@ class BulletTrainClient
         if (null === $config['BASE_URI']) {
             throw new \Exception('BulletTrainClient BASE_URI is not set');
         }
-        $client = new Client($config['BASE_URI']);
-        $this->headers = ['headers' => [
-        'x-environment-key' => $config['API_KEY']
-    ]];
+        $client = new Client([
+            'base_uri' => $config['BASE_URI']
+        ]);
+        $headers = [
+            'headers' => [
+                'x-environment-key' => $config['API_KEY'],
+                'Content-Type' => 'application/json',
+            ]
+        ];
 
         return (new self())
             ->setApiKey($config['API_KEY'])
             ->setBaseUri($config['BASE_URI'])
-            ->setClient($client);
+            ->setClient($client)
+            ->setHeaders($headers);
     }
 
     /**
@@ -118,12 +130,56 @@ class BulletTrainClient
 //        $this->baseUri = $baseUri;
 //    }
 
+
+
     /**
-     * @return \Guzzle\Http\Message\RequestInterface
+     * @return array
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @param array $headers
+     * @return BulletTrainClient
+     */
+    public function setHeaders(array $headers): BulletTrainClient
+    {
+        $this->headers = $headers;
+        return $this;
+    }
+
+    /**
+     * @throws \Exception
      */
     public function getFlags()
     {
-        $request = $this->client->get(self::FLAG_URI, $this->headers);
-        return $this->client->send($request)->getBody(true);
+        if (null !== $this->flags) {
+            return $this->flags;
+        }
+        try {
+            $data = json_decode($this->client->get(self::FLAG_URI, $this->headers)->getBody()->getContents(), true);
+            foreach ($data as $el) {
+                $this->flags[$el['feature']['id']] = new Flag($el['feature']['id'], $el['feature']['name'], $el['enabled']);
+            }
+            return $this->flags;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function exportFlags()
+    {
+        try {
+            $flags = $this->getFlags();
+        } catch (\Exception $e) {
+            return ['warning' => $e->getMessage()];
+        }
+        $array = [];
+        foreach ($flags as $flag) {
+            $array['feature_' . $flag->getName()] = $flag->isEnabled();
+        }
+        return $array;
     }
 }

@@ -24,7 +24,6 @@ $app = AppFactory::create();
 
 $app->get("/", \BulletTrain\Sample\Controller\DefaultController::class . ":index");
 $app->get("/sample", \BulletTrain\Sample\Controller\DefaultController::class . ":sample");
-
-$app->get('/hello/{name}', \BulletTrain\Sample\Controller\DefaultController::class . ":hello");
+$app->get('/about', \BulletTrain\Sample\Controller\DefaultController::class . ":about");
 
 $app->run();

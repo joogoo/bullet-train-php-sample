@@ -9,7 +9,6 @@
 namespace BulletTrain\Sample\Controller;
 
 
-use BulletTrain\Sample\Engine\Templating;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -21,16 +20,14 @@ class DefaultController extends BaseController
         return $response;
     }
 
-    public function hello(RequestInterface $request, ResponseInterface $response, array $args)
+    public function about(RequestInterface $request, ResponseInterface $response, array $args)
     {
-        $name = $args['name'];
-        $response->getBody()->write("Hello, $name");
-        return $response;
+        return $this->render($response, 'about.mustache');
     }
 
     public function sample(RequestInterface $request, ResponseInterface $response, array $args)
     {
 
-        return $this->render($response, 'index.mustache', $this->features);
+        return $this->render($response, 'index.mustache', $this->featuresFlagManager->exportFlags());
     }
 }

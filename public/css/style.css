@@ -1,3 +1,70 @@
-body{
+nav {
+    border-bottom: 1px solid black;
+}
+
+.mainnav {
+    display: inline-block;
+    width: 100%;
+    clear: both;
+}
+
+.mainnav ol {
+    list-style-type: none;
+    padding-left: 0;
+    float: right;
+}
+
+.mainnav li {
+    float:left;
+    padding: 0 3px;
+}
+
+.crumbs ol {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.crumb {
+    display: inline-block;
+}
+
+.crumb a::after {
+    display: inline-block;
+    color: #000;
+    content: '>';
+    font-size: 80%;
+    font-weight: bold;
+    padding: 0 3px;
+}
+
+div.warning {
+    margin-bottom: 15px;
+}
+div.warning span {
+    padding:10px;
+    color: black;
+    background: orange;
+}
+div.warning span::before {
+    font-weight: bold;
+    content: "Warning:\a0";
+}
+
+span.feature_on::before {
+    content: "\2713\a0";
+    color: green;
+}
+
+span.feature_off::before {
+    content: "\2717\a0";
     color:red;
+}
+
+span.feature_on::after {
+    content: "ON";
+    font-weight: bold;
+}
+span.feature_off::after {
+     content: "OFF";
+    font-weight: bold;
 }

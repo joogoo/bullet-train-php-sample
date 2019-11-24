@@ -7,6 +7,6 @@
  */
 
 return [
-    'API_KEY'   => '6WyjCNpDYmcMjZyUhcMMNe',
+    'API_KEY'   => 'dVAyQzRcM5oCiBa55T54dn',
     'BASE_URI'  => 'http://api:8000',
 ];

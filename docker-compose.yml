@@ -36,7 +36,6 @@ services:
     - bullet-train
 
   api:
-#    image: arcticbit/bullet-train-api
     build:
       context: .
       dockerfile: docker/bullet-train-api/Dockerfile
@@ -44,14 +43,12 @@ services:
       && pipenv run python manage.py migrate --noinput
       && pipenv run python manage.py collectstatic --noinput
       && pipenv run gunicorn --bind 0.0.0.0:8000 -w 3 app.wsgi"
-#      && pipenv run python manage.py runserver
     environment:
       DJANGO_DB_NAME: bullettrain
       DJANGO_DB_USER: postgres
       DJANGO_DB_PASSWORD: password
       DJANGO_DB_PORT: 5432
-      DJANGO_ALLOWED_HOST: db,php,api,api:8000
-#      GOOGLE_SERVICE_ACCOUNT: UA-120237963-1
+      DJANGO_ALLOWED_HOSTS: db,php,api,api:8000
     ports:
       - "8081:8000"
     depends_on:
@@ -63,7 +60,6 @@ services:
 
 
   frontend:
-    #image: arcticbit/bullet-train-frontend
     build:
       context: .
       dockerfile: docker/bullet-train-frontend/Dockerfile
