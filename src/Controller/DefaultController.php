@@ -14,26 +14,37 @@ use Psr\Http\Message\ResponseInterface;
 
 class DefaultController extends BaseController
 {
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function index(RequestInterface $request, ResponseInterface $response, array $args)
     {
-        $response->getBody()->write("Hello World!");
-        return $response;
+        $data = $this->featuresFlagManager->exportFlags();
+        return $this->render($response, 'index.mustache', array_merge($data, ['debug' => $data]));
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function about(RequestInterface $request, ResponseInterface $response, array $args)
     {
         return $this->render($response, 'about.mustache');
     }
 
-    public function sample(RequestInterface $request, ResponseInterface $response, array $args)
-    {
-
-        return $this->render($response, 'index.mustache', $this->featuresFlagManager->exportFlags());
-    }
-
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function login(RequestInterface $request, ResponseInterface $response, array $args)
     {
-
         return $this->render($response, 'login.mustache', $this->featuresFlagManager->exportFlags());
     }
 }

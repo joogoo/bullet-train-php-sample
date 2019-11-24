@@ -22,6 +22,11 @@ class Flag
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $description;
+
+    /**
      * @var boolean
      */
     protected $isEnabled;
@@ -30,12 +35,14 @@ class Flag
      * Flag constructor.
      * @param int $id
      * @param string $name
+     * @param string $description
      * @param bool $isEnabled
      */
-    public function __construct(int $id, string $name, bool $isEnabled)
+    public function __construct(int $id, string $name, string $description, bool $isEnabled)
     {
         $this->id = $id;
         $this->name = $name;
+        $this->description = $description;
         $this->isEnabled = $isEnabled;
     }
 
@@ -53,6 +60,14 @@ class Flag
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 
     /**

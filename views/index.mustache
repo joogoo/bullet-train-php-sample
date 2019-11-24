@@ -1,18 +1,12 @@
-{{> header }}
-<body>
-    {{> features/login/main }}
-    <h1>Bullet Train PHP Sample</h1>
-    {{#warning}}
-        <div class="warning">
-            <span>{{warning}}</span>
-        </div>
-    {{/warning}}
-    <div>
-        <span>Features:</span>
+{{> generic/header }}
+    <div class="main">
+        <h2>Feature dashboard</h2>
         <ul>
-            <li>Nice UI: <span class="feature_{{#feature_nice_ui}}on{{/feature_nice_ui}}{{^feature_nice_ui}}off{{/feature_nice_ui}}"></span></li>
-            <li>Login Feature: <span class="feature_{{#feature_login}}on{{/feature_login}}{{^feature_login}}off{{/feature_login}}"></span></li>
+            {{#feature_login}}{{> features/dashboard/feature }}{{/feature_login}}
+            {{#feature_nice_ui}}{{> features/dashboard/feature }}{{/feature_nice_ui}}
         </ul>
+        {{#feature_login}}{{#enabled}}
+        {{> features/login/login.form }}
+        {{/enabled}}{{/feature_login}}
     </div>
-</body>
-</html>
+{{> generic/footer }}

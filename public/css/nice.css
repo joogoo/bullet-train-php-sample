@@ -1,3 +1,106 @@
-body{
+body {
+    margin:0;
+}
+.container, footer {
+    margin: 8px;
+}
+
+nav {
+    background: #f4f7f8;
+    padding:0;
+}
+
+nav a {
+    color: #717e87;
+}
+nav a:hover {
+    color: #8a97a0;
+}
+nav li ~ li {
+    padding-left: 10px;
+}
+
+nav li:last-child {
+    padding-right:10px;
+}
+
+.main ul {
+    list-style: none;
+}
+.main li:before {
+    content: "\2605";
+    padding-right: 8px;
+    color: #9b9e9f;
+}
+.main h2 {
+    font-size:1.25em;
+}
+
+.form-login {
+    max-width: 500px;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    margin: 10px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+.form-login fieldset {
+    border: none;
+}
+.form-login legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.form-login input[type="text"],
+.form-login input[type="password"] {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0 0 30px 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color:#8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    /*margin-bottom: 30px;*/
+}
+.form-login input[type="text"]:focus,
+.form-login input[type="password"]:focus {
+    background: #d2d9dd;
+}
+
+.form-login input[type="submit"],
+.form-login input[type="button"]
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto 10px auto;
+    background: #1abc9c;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: solid #16a085;
+    border-width: 1px 1px 3px;
+    /*margin-bottom: 10px;*/
+}
+.form-login input[type="submit"]:hover,
+.form-login input[type="button"]:hover
+{
+    background: #109177;
+}
+
+.love {
     color:red;
 }

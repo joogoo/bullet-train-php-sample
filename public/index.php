@@ -6,24 +6,27 @@
  * Time: 00:08
  */
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use BulletTrain\Sample\Client\BulletTrainClient;
+use BulletTrain\Sample\Renderer\HtmlErrorRenderer;
 use Slim\Factory\AppFactory;
-use Slim\Factory\ServerRequestCreatorFactory;
-
 
 require '../vendor/autoload.php';
 
-
-//AppFactory::setSlimHttpDecoratorsAutomaticDetection(false);
-//ServerRequestCreatorFactory::setSlimHttpDecoratorsAutomaticDetection(false);
+$class = BulletTrainClient::class;
+$builder = new $class();
+/** @var BulletTrainClient $featuresFlagManager */
+$featuresFlagManager = $builder();
 
 $app = AppFactory::create();
 
-//$app->addErrorMiddleware(true, true, true);
+$errorMiddleware = $app->addErrorMiddleware(false, false, false);
+$errorHandler = $errorMiddleware->getDefaultErrorHandler();
+$errorHandler->registerErrorRenderer('text/html', HtmlErrorRenderer::class);
 
 $app->get("/", \BulletTrain\Sample\Controller\DefaultController::class . ":index");
-$app->get("/sample", \BulletTrain\Sample\Controller\DefaultController::class . ":sample");
 $app->get('/about', \BulletTrain\Sample\Controller\DefaultController::class . ":about");
+if ($featuresFlagManager->isFlagEnabled('login')) {
+    $app->get('/login', \BulletTrain\Sample\Controller\DefaultController::class . ":login");
+}
 
 $app->run();

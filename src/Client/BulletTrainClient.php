@@ -156,8 +156,14 @@ class BulletTrainClient
         }
         try {
             $data = json_decode($this->client->get(self::FLAG_URI, $this->headers)->getBody()->getContents(), true);
+
             foreach ($data as $el) {
-                $this->flags[$el['feature']['id']] = new Flag($el['feature']['id'], $el['feature']['name'], $el['enabled']);
+                $this->flags[$el['feature']['id']] = new Flag(
+                    $el['feature']['id'],
+                    $el['feature']['name'],
+                    $el['feature']['description'] ?? $el['feature']['name'],
+                    $el['enabled']
+                );
             }
             return $this->flags;
         } catch (\Exception $e) {
@@ -174,8 +180,29 @@ class BulletTrainClient
         }
         $array = [];
         foreach ($flags as $flag) {
-            $array['feature_' . $flag->getName()] = $flag->isEnabled();
+            $array['feature_' . $flag->getName()] = [
+                'id'            => $flag->getId(),
+                'name'          => $flag->getName(),
+                'description'   => $flag->getDescription(),
+                'enabled'       => $flag->isEnabled(),
+                'status'        => $flag->isEnabled() ? 'on' : 'off',
+            ];
         }
         return $array;
+    }
+
+    /**
+     * @param string $flagName
+     * @return bool
+     * @throws \Exception
+     */
+    public function isFlagEnabled(string $flagName)
+    {
+        foreach ($this->getFlags() as $flag) {
+            if ($flag->getName() === $flagName) {
+                return $flag->isEnabled();
+            }
+        }
+        return false;
     }
 }

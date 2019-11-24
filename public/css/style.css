@@ -1,39 +1,17 @@
 nav {
-    border-bottom: 1px solid black;
-}
-
-.mainnav {
     display: inline-block;
     width: 100%;
     clear: both;
 }
 
-.mainnav ol {
+nav ol {
     list-style-type: none;
     padding-left: 0;
     float: right;
 }
 
-.mainnav li {
+nav li {
     float:left;
-    padding: 0 3px;
-}
-
-.crumbs ol {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.crumb {
-    display: inline-block;
-}
-
-.crumb a::after {
-    display: inline-block;
-    color: #000;
-    content: '>';
-    font-size: 80%;
-    font-weight: bold;
     padding: 0 3px;
 }
 
