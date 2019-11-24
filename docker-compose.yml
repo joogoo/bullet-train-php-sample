@@ -9,6 +9,9 @@ services:
       - ./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf
     links:
     - php
+    - api:api
+    networks:
+    - bullet-train
   php:
     image: php:7-fpm
     volumes:
@@ -17,6 +20,10 @@ services:
     - ./src:/project/src
     - ./conf:/project/conf
     - ./views:/project/views
+    links:
+      - api:localhost
+    networks:
+    - bullet-train
 
   db:
     image: postgres
@@ -29,8 +36,10 @@ services:
     - bullet-train
 
   api:
-    image: arcticbit/bullet-train-api
-    working_dir: /api
+#    image: arcticbit/bullet-train-api
+    build:
+      context: .
+      dockerfile: docker/bullet-train-api/Dockerfile
     command: bash -c "cd /api/src
       && pipenv run python manage.py migrate --noinput
       && pipenv run python manage.py collectstatic --noinput
@@ -41,7 +50,7 @@ services:
       DJANGO_DB_USER: postgres
       DJANGO_DB_PASSWORD: password
       DJANGO_DB_PORT: 5432
-      DJANGO_ALLOWED_HOST: db
+      DJANGO_ALLOWED_HOST: db,php
 #      GOOGLE_SERVICE_ACCOUNT: UA-120237963-1
     ports:
       - "8081:8000"

@@ -5,7 +5,8 @@
         "mustache/mustache": "^2.12",
         "slim/slim": "^4.3",
         "slim/psr7": "^0.6.0",
-        "slim/http": "^0.8.0"
+        "slim/http": "^0.8.0",
+        "guzzle/guzzle": "^3.9"
     },
     "license": "GPLv3",
     "authors": [

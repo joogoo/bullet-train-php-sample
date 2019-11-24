@@ -8,5 +8,5 @@
 
 return [
     'feature_login' => false,
-    'feature_nice_ui' => true,
+    'feature_nice_ui' => false,
 ];

@@ -9,6 +9,7 @@
 namespace BulletTrain\Sample\Controller;
 
 
+use BulletTrain\Sample\Client\BulletTrainClient;
 use BulletTrain\Sample\Engine\Templating;
 use Psr\Http\Message\ResponseInterface;
 
@@ -24,12 +25,26 @@ class BaseController
      */
     protected $features;
 
+    /**
+     * @var BulletTrainClient
+     */
+    protected $featuresFlagManager;
+
     public function __construct()
     {
         $class = Templating::class;
         $builder = new $class();
         /** @var Templating $engine */
         $this->engine = $builder();
+
+        $class = BulletTrainClient::class;
+        $builder = new $class();
+        /** @var BulletTrainClient $featuresFlagManager */
+        $this->featuresFlagManager = $builder();
+        echo "<pre>";
+        var_dump($this->featuresFlagManager->getFlags());
+        echo "</pre>";
+
 
         $this->features = include dirname(__DIR__, 2) . '/conf/features.php';
     }
