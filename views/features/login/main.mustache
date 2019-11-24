@@ -1,6 +1,9 @@
-{{#feature_login}}
-    {{> features/login/active }}
-{{/feature_login}}
-{{^feature_login}}
-    {{> features/login/inactive }}
-{{/feature_login}}
+<nav class="mainnav">
+    <ol>
+        <li><a href="/sample">Sample</a></li>
+        <li><a href="/about">About</a></li>
+        {{#feature_login}}
+            {{> features/login/active }}
+        {{/feature_login}}
+    </ol>
+</nav>

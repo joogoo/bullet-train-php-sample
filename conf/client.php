@@ -7,6 +7,6 @@
  */
 
 return [
-    'API_KEY'   => 'dVAyQzRcM5oCiBa55T54dn',
+    'API_KEY'   => 'SET_YOUR_PROJECT_API_KEY',
     'BASE_URI'  => 'http://api:8000',
 ];

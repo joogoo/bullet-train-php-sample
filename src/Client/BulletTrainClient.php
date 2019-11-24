@@ -43,8 +43,12 @@ class BulletTrainClient
 
     public function __invoke(array $config = null)
     {
+        $path = dirname(__DIR__, 2) . '/conf/';
         if (null === $config) {
-            $config = include dirname(__DIR__, 2) . '/conf/client.php';
+            $config = include $path . 'client.php';
+        }
+        if (file_exists($path . 'client.local.php')) {
+            $config = array_merge($config, include $path . 'client.local.php');
         }
         if (null === $config['API_KEY']) {
             throw new \Exception('BulletTrainClient API_KEY is not set');
@@ -122,14 +126,6 @@ class BulletTrainClient
         $this->client = $client;
         return $this;
     }
-
-//    public function __construct(Client $client, string $apiKey, string $baseUri)
-//    {
-//        $this->client = $client;
-//        $this->apiKey = $apiKey;
-//        $this->baseUri = $baseUri;
-//    }
-
 
 
     /**

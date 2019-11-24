@@ -30,4 +30,10 @@ class DefaultController extends BaseController
 
         return $this->render($response, 'index.mustache', $this->featuresFlagManager->exportFlags());
     }
+
+    public function login(RequestInterface $request, ResponseInterface $response, array $args)
+    {
+
+        return $this->render($response, 'login.mustache', $this->featuresFlagManager->exportFlags());
+    }
 }
