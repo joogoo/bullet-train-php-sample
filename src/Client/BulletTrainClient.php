@@ -30,6 +30,11 @@ class BulletTrainClient
      */
     protected $client;
 
+    /**
+     * @var array
+     */
+    protected $headers = [];
+
     public function __invoke(array $config = null)
     {
         if (null === $config) {
@@ -41,11 +46,10 @@ class BulletTrainClient
         if (null === $config['BASE_URI']) {
             throw new \Exception('BulletTrainClient BASE_URI is not set');
         }
-        $client = new Client($config['BASE_URI'], [
-            'headers' => [
-                'x-environment-key' => $config['API_KEY']
-            ]
-        ]);
+        $client = new Client($config['BASE_URI']);
+        $this->headers = ['headers' => [
+        'x-environment-key' => $config['API_KEY']
+    ]];
 
         return (new self())
             ->setApiKey($config['API_KEY'])
@@ -119,7 +123,7 @@ class BulletTrainClient
      */
     public function getFlags()
     {
-        $request = $this->client->get(self::FLAG_URI);
+        $request = $this->client->get(self::FLAG_URI, $this->headers);
         return $this->client->send($request)->getBody(true);
     }
 }
