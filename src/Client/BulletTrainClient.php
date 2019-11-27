@@ -41,12 +41,16 @@ class BulletTrainClient
      */
     protected $flags = null;
 
+    protected $defaultFeatureFlags = null;
+
     public function __invoke(array $config = null)
     {
         $path = dirname(__DIR__, 2) . '/conf/';
         if (null === $config) {
             $config = include $path . 'client.php';
         }
+        $defaultFeatureFlags = include $path . 'features.php';
+
         if (file_exists($path . 'client.local.php')) {
             $config = array_merge($config, include $path . 'client.local.php');
         }
@@ -70,7 +74,8 @@ class BulletTrainClient
             ->setApiKey($config['API_KEY'])
             ->setBaseUri($config['BASE_URI'])
             ->setClient($client)
-            ->setHeaders($headers);
+            ->setHeaders($headers)
+            ->setDefaultFeatureFlags($defaultFeatureFlags);
     }
 
     /**
@@ -147,15 +152,40 @@ class BulletTrainClient
     }
 
     /**
+     * @return null
+     */
+    public function getDefaultFeatureFlags()
+    {
+        return $this->defaultFeatureFlags;
+    }
+
+    /**
+     * @param null $defaultFeatureFlags
+     * @return BulletTrainClient
+     */
+    public function setDefaultFeatureFlags($defaultFeatureFlags): BulletTrainClient
+    {
+        $this->defaultFeatureFlags = $defaultFeatureFlags;
+        return $this;
+    }
+
+
+    /**
      * @throws \Exception
      */
-    public function getFlags()
+    protected function getFlags()
     {
         if (null !== $this->flags) {
             return $this->flags;
         }
         try {
-            $data = json_decode($this->client->get(self::FLAG_URI, $this->headers)->getBody()->getContents(), true);
+            $data = json_decode(
+                $this->client->get(
+                    self::FLAG_URI,
+                    $this->headers
+                )->getBody()->getContents(),
+                true
+            );
 
             foreach ($data as $el) {
                 $this->flags[$el['feature']['id']] = new Flag(
@@ -171,19 +201,19 @@ class BulletTrainClient
         }
     }
 
-    public function exportFlags()
+    public function export()
     {
         try {
             $flags = $this->getFlags();
         } catch (\Exception $e) {
-            return ['warning' => $e->getMessage()];
+            return $this->getDefaultFeatureFlags() + ['warning' => $e->getMessage()];
         }
         $array = [];
         foreach ($flags as $flag) {
             $array['feature_' . $flag->getName()] = [
                 'id'            => $flag->getId(),
                 'name'          => $flag->getName(),
-                'description'   => $flag->getDescription(),
+                'description'   => $flag->getDescription() ? $flag->getDescription() : $flag->getName(),
                 'enabled'       => $flag->isEnabled(),
                 'status'        => $flag->isEnabled() ? 'on' : 'off',
             ];
@@ -198,10 +228,14 @@ class BulletTrainClient
      */
     public function isFlagEnabled(string $flagName)
     {
-        foreach ($this->getFlags() as $flag) {
-            if ($flag->getName() === $flagName) {
-                return $flag->isEnabled();
+        try {
+            foreach ($this->getFlags() as $flag) {
+                if ($flag->getName() === $flagName) {
+                    return $flag->isEnabled();
+                }
             }
+        } catch (\Exception $e) {
+            return $this->getDefaultFeatureFlags();
         }
         return false;
     }

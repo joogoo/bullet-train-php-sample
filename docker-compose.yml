@@ -7,21 +7,16 @@ services:
     volumes:
       - ./public:/project/public
       - ./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf
-    links:
-    - php
-    - api:api
     networks:
     - bullet-train
   php:
-    image: php:7-fpm
+    image: php:fpm
     volumes:
     - ./public:/project/public
     - ./vendor:/project/vendor
     - ./src:/project/src
     - ./conf:/project/conf
     - ./views:/project/views
-    links:
-      - api:api
     networks:
     - bullet-train
 
@@ -53,8 +48,6 @@ services:
       - "8081:8000"
     depends_on:
       - db
-    links:
-      - db:db
     networks:
     - bullet-train
 
@@ -67,8 +60,6 @@ services:
       - "8082:8080"
     depends_on:
       - api
-    links:
-      - api:api
     networks:
       - bullet-train
 

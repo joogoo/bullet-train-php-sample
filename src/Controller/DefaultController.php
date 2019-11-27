@@ -22,8 +22,7 @@ class DefaultController extends BaseController
      */
     public function index(RequestInterface $request, ResponseInterface $response, array $args)
     {
-        $data = $this->featuresFlagManager->exportFlags();
-        return $this->render($response, 'index.mustache', array_merge($data, ['debug' => $data]));
+        return $this->render($response, 'index.mustache');
     }
 
     /**
@@ -45,6 +44,6 @@ class DefaultController extends BaseController
      */
     public function login(RequestInterface $request, ResponseInterface $response, array $args)
     {
-        return $this->render($response, 'login.mustache', $this->featuresFlagManager->exportFlags());
+        return $this->render($response, 'login.mustache');
     }
 }

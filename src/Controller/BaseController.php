@@ -51,7 +51,7 @@ class BaseController
      */
     public function render(ResponseInterface $response, string $template, ?array $context = null): ResponseInterface
     {
-        $context = $context ?? $this->featuresFlagManager->exportFlags();
+        $context = $context ?? $this->featuresFlagManager->export();
         $response
             ->getBody()
                 ->write(
