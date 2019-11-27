@@ -18,7 +18,7 @@ docker-compose up;
 docker exec -it bullet-train-php-sample_api_1 pipenv run python src/manage.py createsuperuser
 ```
 
-- Open the front-end at [http://localhost:8082](http://localhost:8082)
+- Open the front-end at [http://localhost:8082](http://localhost:8082) and sign-in with the super admin account
 
 - Create an organization, a project and finally 2 feature flags called:
     - 'login'
