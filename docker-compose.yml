@@ -11,6 +11,7 @@ services:
     - bullet-train
   php:
     image: php:fpm
+    # Only few folders needs to be accessible in the container
     volumes:
     - ./public:/project/public
     - ./vendor:/project/vendor

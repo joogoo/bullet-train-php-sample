@@ -20,5 +20,10 @@
         "psr-4": {
             "BulletTrain\\Sample\\": "src/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php -r \"copy('conf/client.local.dist.php', 'conf/client.local.php');\""
+        ]
     }
 }
