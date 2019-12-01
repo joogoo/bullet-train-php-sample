@@ -13,6 +13,8 @@ You'll need [docker](https://www.docker.com/) and [docker-compose](https://docs.
 
 To work properly, Bullet Train requires a Google Analytics account. For testing purposes, I abandoned this feature by injecting a workaround into the API.
 
+Do not use this in production !
+
 #### Clone this project
 
 ```bash
@@ -40,7 +42,7 @@ docker exec -it bullet-train-php-sample_api_1 pipenv run python src/manage.py cr
 
 #### Configure your feature flags
 
-- Go to [http://localhost:8082/](http://localhost:8082/) and sign-in with the super admin account you created previously.
+- Go to [http://localhost:8082/](http://localhost:8082/) and sign in with the super admin account you created previously.
 
 - Create an organization, a project and finally 2 feature flags:
 
