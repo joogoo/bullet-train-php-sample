@@ -46,10 +46,11 @@ class BulletTrainClient
     public function __invoke(array $config = null)
     {
         $path = dirname(__DIR__, 2) . '/conf/';
+        $fixturesPath = dirname(__DIR__, 2) . '/fixtures/';
         if (null === $config) {
             $config = include $path . 'client.php';
         }
-        $defaultFeatureFlags = include $path . 'features.php';
+        $defaultFeatureFlags = include $fixturesPath . 'features.php';
 
         if (file_exists($path . 'client.local.php')) {
             $config = array_merge($config, include $path . 'client.local.php');

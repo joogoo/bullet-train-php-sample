@@ -1,1 +1,8 @@
-{{#enabled}}<li><a href="/login">Login</a></li>{{/enabled}}
+{{#enabled}}
+    {{^signed_in}}
+    <li><a href="/login">Login</a></li>
+    {{/signed_in}}
+    {{#signed_in}}
+        <li><a href="/">Logout</a></li>
+    {{/signed_in}}
+{{/enabled}}

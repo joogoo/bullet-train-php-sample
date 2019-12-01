@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       - ./public:/project/public
-      - ./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf
+      - ./docker/nginx/site.conf:/etc/nginx/conf.d/default.conf
     networks:
     - bullet-train
   php:
@@ -17,6 +17,7 @@ services:
     - ./src:/project/src
     - ./conf:/project/conf
     - ./views:/project/views
+    - ./fixtures:/project/fixtures
     networks:
     - bullet-train
 

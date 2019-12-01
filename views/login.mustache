@@ -1,3 +1,8 @@
 {{> generic/header }}
+    {{#signed_in}}
+        <div>Hello, {{username}} !</div>
+    {{/signed_in}}
+    {{^signed_in}}
     {{> features/login/login.form }}
+    {{/signed_in}}
 {{> generic/footer }}

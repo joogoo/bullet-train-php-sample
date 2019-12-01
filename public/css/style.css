@@ -11,7 +11,7 @@ nav ol {
 }
 
 nav li {
-    float:left;
+    float: left;
     padding: 0 3px;
 }
 
@@ -26,6 +26,14 @@ div.warning span {
 div.warning span::before {
     font-weight: bold;
     content: "Warning:\a0";
+}
+
+.error {
+    margin: -20px auto 20px 15px;
+}
+.error span::before {
+    font-weight: bold;
+    content: "Error:\a0";
 }
 
 span.feature_on::before {

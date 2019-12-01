@@ -30,17 +30,10 @@ class BaseController
      */
     protected $featuresFlagManager;
 
-    public function __construct()
+    public function __construct(Templating $engine, BulletTrainClient $featuresFlagManager)
     {
-        $class = Templating::class;
-        $builder = new $class();
-        /** @var Templating $engine */
-        $this->engine = $builder();
-
-        $class = BulletTrainClient::class;
-        $builder = new $class();
-        /** @var BulletTrainClient $featuresFlagManager */
-        $this->featuresFlagManager = $builder();
+        $this->engine = $engine;
+        $this->featuresFlagManager = $featuresFlagManager;
     }
 
     /**
@@ -49,13 +42,14 @@ class BaseController
      * @param array|null $context
      * @return ResponseInterface
      */
-    public function render(ResponseInterface $response, string $template, ?array $context = null): ResponseInterface
+    public function render(ResponseInterface $response, string $template, ?array $context = []): ResponseInterface
     {
-        $context = $context ?? $this->featuresFlagManager->export();
+        $features = $this->featuresFlagManager->export();
+        $data = array_merge($features, $context);
         $response
             ->getBody()
                 ->write(
-                    $this->engine->render($template, $context)
+                    $this->engine->render($template, $data)
                 );
         return $response;
     }

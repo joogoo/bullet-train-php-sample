@@ -8,7 +8,6 @@
 
 namespace BulletTrain\Sample\Controller;
 
-
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
