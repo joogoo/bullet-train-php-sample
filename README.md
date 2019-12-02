@@ -51,7 +51,7 @@ docker exec -it bullet-train-php-sample_api_1 pipenv run python src/manage.py cr
 |  login  |  Login feature  | your choice |
 | nice_ui | Nice UI feature | your choice |
 
-- Get the environment key for this project (see the `Code example: 2: Initialising your project` section) and save it as your API_KEY in a conf/client.local.php
+- Get the environment key for this project (see the `environmentID` value in the `Code example: 2: Initialising your project` section) and save it as your API_KEY in a conf/client.local.php
 
 - Go back to [http://localhost:8080/](http://localhost:8080) and enjoy switching features in [Bullet Train [http://localhost:8082]](http://localhost:8082/).
 
