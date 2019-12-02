@@ -32,7 +32,7 @@ docker run --rm --interactive --tty \
 
 #### Run the sample services
 ```bash
-docker-composer up -d
+docker-compose up -d
 ```
 
 #### Create a super admin account
@@ -48,7 +48,7 @@ docker exec -it bullet-train-php-sample_api_1 pipenv run python src/manage.py cr
 
 |    ID   |   Description   |    Enabled  |
 |---------|-----------------|-------------|
-|  login  |  Login feature  | your choice | 
+|  login  |  Login feature  | your choice |
 | nice_ui | Nice UI feature | your choice |
 
 - Get the environment key for this project (see the `Code example: 2: Initialising your project` section) and save it as your API_KEY in a conf/client.local.php
